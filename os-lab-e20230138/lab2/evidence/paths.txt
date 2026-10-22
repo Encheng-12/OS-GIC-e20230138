@@ -1,0 +1,20 @@
+Step 3:
+cd reports
+pwd
+mv "$file1" ../reports/
+cd ..
+pwd
+mv "$OSLAB_WORKSPACE/lab2/incoming/$file2" "$OSLAB_WORKSPACE/lab2/reports/"
+pwd
+cp reports/* TechCorp/"$owner"/
+pwd
+cp reports/"$file1" TechCorp/"$owner"/archive/first-original.txt
+cd TechCorp/"$reader"
+pwd
+# Read using a relative path:
+cat ../Legal/"$file1"
+# Read using an absolute path:
+cat /home/gic-teav-encheng/oslab-work/lab2/TechCorp/Legal/"$file1"
+
+Error: cat: 'reports/sales north.txt': No such file or directory
+Fix: ../../reports/sales north.txt
