@@ -31,26 +31,34 @@ Screenshot of running `copyfilesyscall.c` on Linux:
 **Version A — Library Functions (`file_creator_lib.c`):**
 
 <!-- Screenshot: gcc -o file_creator_lib file_creator_lib.c && ./file_creator_lib && cat output.txt -->
+
 ![Task 1A - Library](screenshots/task1_creator_lib.png)
 
 **Version B — POSIX System Calls (`file_creator_sys.c`):**
 
 <!-- Screenshot: gcc -o file_creator_sys file_creator_sys.c && ./file_creator_sys && cat output.txt -->
+
 ![Task 1A - Syscall](screenshots/task1_creator_sys.png)
 
 **Questions:**
 
 1. **What flags did you pass to `open()`? What does each flag mean?**
 
-   > [Your answer]
+   > O_WRONLY: Opens the file for write-only access.
+   > O_CREAT: Creates the file if it does not already exist.
+   > O_TRUNC: Truncates the file length to zero if it already exists.
 
 2. **What is `0644`? What does each digit represent?**
 
-   > [Your answer]
+   > 0644 is an octal permission mask specifying file access permissions:
+   > 0: Octal prefix format in C.
+   > 6 (Owner): Read (4) + Write (2) permissions.
+   > 4 (Group): Read-only permission.  
+   > 4 (Others): Read-only permission.
 
 3. **What does `fopen("output.txt", "w")` do internally that you had to do manually?**
 
-   > [Your answer]
+   > fopen() automatically allocates an internal user-space memory buffer (via a FILE structure) and maps mode "w" to lower-level system call flags O_WRONLY | O_CREAT | O_TRUNC along with default permission modes (typically 0666 modified by system umask).
 
 ### Part B — File Reader & Display
 
@@ -68,11 +76,11 @@ Screenshot of running `copyfilesyscall.c` on Linux:
 
 1. **What does `read()` return? How is this different from `fgets()`?**
 
-   > [Your answer]
+   > read() returns the exact number of bytes read into the buffer as a ssize_t (returning 0 on EOF and -1 on error). fgets() returns a pointer to the character string buffer on success or NULL on EOF or error.
 
 2. **Why do you need a loop when using `read()`? When does it stop?**
 
-   > [Your answer]
+   > A loop is required because read() may fetch data in fixed byte chunks rather than the entire file at once. The loop terminates when read() returns 0, which signals End-Of-File (EOF).
 
 ---
 
@@ -92,15 +100,15 @@ Screenshot of running `copyfilesyscall.c` on Linux:
 
 1. **What struct does `readdir()` return? What fields does it contain?**
 
-   > [Your answer]
+   > readdir() returns a pointer to a struct dirent. Key fields include d_name (null-terminated filename string), d_ino (inode number), d_type (file type), d_reclen (record length), and d_off (offset to the next dirent).
 
 2. **What information does `stat()` provide beyond file size?**
 
-   > [Your answer]
+   > Beyond file size (st_size), stat() provides permissions (st_mode), owner ID (st_uid), group ID (st_gid), inode number (st_ino), device ID (st_dev), link count (st_nlink), and access/modification timestamps (st_atime, st_mtime, st_ctime).
 
 3. **Why can't you `write()` a number directly — why do you need `snprintf()` first?**
 
-   > [Your answer]
+   > write() writes raw byte memory. Passing an integer directly writes raw binary bits (e.g., 0x0000002A), outputting unprintable control codes rather than ASCII numerals. snprintf() formats integer values into human-readable ASCII text characters prior to calling write().
 
 ---
 
@@ -134,12 +142,14 @@ Screenshot of running on Windows:
 
 <!-- Screenshot: strace -e trace=openat,read,write,close ./file_creator_lib -->
 <!-- IMPORTANT: Highlight/annotate the key system calls in your screenshot -->
+
 ![strace - Library version File Creator](screenshots/strace_lib_creator.png)
 
 ### strace Output — System Call Version (File Creator)
 
 <!-- Screenshot: strace -e trace=openat,read,write,close ./file_creator_sys -->
 <!-- IMPORTANT: Highlight/annotate the key system calls in your screenshot -->
+
 ![strace - System call version File Creator](screenshots/strace_sys_creator.png)
 
 ### strace Output — Library Version (File Reader or Dir Listing)
@@ -153,6 +163,7 @@ Screenshot of running on Windows:
 ### strace -c Summary Comparison
 
 <!-- Screenshot of `strace -c` output for both versions -->
+
 ![strace summary - Library](screenshots/strace_summary_lib.png)
 ![strace summary - Syscall](screenshots/strace_summary_sys.png)
 
@@ -160,19 +171,21 @@ Screenshot of running on Windows:
 
 1. **How many system calls does the library version make compared to the system call version?**
 
-   > [Your answer — use the `strace -c` counts]
+   > There are 6 The library version makes additional system calls during execution due to dynamic loader setup, dynamic heap allocation, and stdio buffer handling compared to the direct system call binary.
 
 2. **What extra system calls appear in the library version? What do they do?**
 
-   > [Your answer — mention `brk`, `mmap`, `fstat`, etc.]
+   > brk / mmap: Allocate dynamic heap space and memory-map standard stream buffer segments.
+   > fstat / newfstatat: Query file descriptor status to determine buffer chunk sizing.
+   > openat: Locate and map shared C library dependencies (libc.so).
 
 3. **How many `write()` calls does `fprintf()` actually produce?**
 
-   > [Your answer]
+   > fprintf() buffers output in user space and typically produces a single combined write() system call when the internal memory stream is explicitly flushed or closed.
 
 4. **In your own words, what is the real difference between a library function and a system call?**
 
-   > [Your answer]
+   > A library function executes entirely in user space to provide memory management, algorithms, and stream buffers. A system call executes CPU trap/interrupt instructions to cross into privileged kernel space to request kernel routines perform hardware operations.
 
 ---
 
@@ -206,23 +219,27 @@ Screenshot of running on Windows:
 
 1. **What is `/proc`? Is it a real filesystem on disk?**
 
-   > [Your answer]
+   > /proc is a virtual (pseudo) filesystem generated dynamically by the Linux kernel. It does not exist on disk; it acts as a kernel interface exposing real-time process data structures directly from memory.
 
 2. **Monolithic kernel vs. microkernel — which type does Linux use?**
 
-   > [Your answer]
+   > Linux uses a monolithic kernel architecture, running all primary operating system capabilities (file systems, networking, device drivers, memory management) within a single privileged kernel space (modularized dynamically with Loadable Kernel Modules).
 
 3. **What memory regions do you see in `/proc/self/maps`?**
 
-   > [Your answer]
+   > Standard regions include .text (code instructions), .data / .bss (global variables), [heap] (dynamically allocated memory), shared library mappings (.so), [stack] (local variables and call stack), and kernel dynamic mapping vectors ([vdso] / [vvar]).
 
 4. **Break down the kernel version string from `uname -a`.**
 
-   > [Your answer]
+   > Linux: i4gic-os
+   > 7: Major version.
+   > 0 : Minor version.
+   > 0-38 : Patch/build number.
+   > generic: Target build architecture profile.
+   > SMP / PREEMPT: Multi-core symmetric processing and CPU scheduling model.
 
 5. **How does `/proc` show that the OS is an intermediary between programs and hardware?**
-
-   > [Your answer]
+   > /proc exposes hardware telemetry (CPU stats in /proc/cpuinfo, memory state in /proc/meminfo) via standard file interfaces, enabling user-space programs to query hardware data safely through operating system abstractions without direct access to hardware registers.
 
 ---
 
