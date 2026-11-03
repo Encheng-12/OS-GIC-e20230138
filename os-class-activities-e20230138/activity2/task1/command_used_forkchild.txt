@@ -1,5 +1,20 @@
-gcc -o forkchild forkchild.c
-./forkchild > result_forkchild.txt 2>&1
-cat result_forkchild.txt
-pstree -p $(pgrep -o forkchild)
-history | tail -n 20 > command_used_forkchild.txt
+ 1008  ls
+ 1009  cd os-class-activities-e20230138/
+ 1010  ls
+ 1011  cd activity2
+ 1012  ls
+ 1013  clear
+ 1014  ls
+ 1015  gcc -o forkchild forkchild.c
+ 1016  clear
+ 1017  ls
+ 1018  cd task1
+ 1019  ls
+ 1020  gcc -o forkchild forkchild.c
+ 1021  ./forkchild > result_forkchild.txt 2>&1
+ 1022  cat result_forkchild.txt
+ 1023  ./forkchild > result_forkchild.txt 2>&1
+ 1024  cat result_forkchild.txt
+ 1025  ps -ef --forest | grep forkchild
+ 1026  pstree -p $(pgrep -o forkchild)
+ 1027  history | tail -n 20 > command_used_forkchild.txt
