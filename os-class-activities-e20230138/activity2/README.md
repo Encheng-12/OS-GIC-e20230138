@@ -2,7 +2,7 @@
 
 - **Student Name:** TEAV ENCHENG
 - **Student ID:** e20230138
-- **Date:** [Date of Submission]
+- **Date:** 03/11/2026
 
 ---
 
@@ -30,15 +30,15 @@ Screenshot of the parent-child process tree (using `ps --forest`, `pstree`, or `
 
 1. **What does `fork()` return to the parent? What does it return to the child?**
 
-   > [Your answer]
+   > fork() returns the child process ID (PID) to the parent, and 0 to the child process. It returns -1 if process creation fails.
 
 2. **What happens if you remove the `waitpid()` call? Why might the output look different?**
 
-   > [Your answer]
+   > The parent process might finish and exit before the child completes, turning the child into an orphan adopted by init/systemd. Consequently, terminal prompts may interleave with the child process output.
 
 3. **What does `execlp()` do? Why don't we see "execlp failed" when it succeeds?**
 
-   > [Your answer]
+   > execlp() replaces the current process memory space with a new executable program. When it succeeds, the entire original code is overwritten, so execution never reaches the error-handling lines following execlp().
 
 4. **Draw the process tree for your program (parent → child). Include PIDs from your output.**
 
@@ -46,7 +46,7 @@ Screenshot of the parent-child process tree (using `ps --forest`, `pstree`, or `
 
 5. **Which command did you use to view the process tree (`ps --forest`, `pstree`, or `htop`)? What information does each column show?**
 
-   > [Your answer]
+   > Used ps --forest. Columns typically indicate USER (process owner), PID (process ID), PPID (parent PID), %CPU (processor usage), %MEM (memory usage), TTY (terminal type), STAT (process state), and COMMAND (command line string).
 
 ---
 
@@ -72,24 +72,24 @@ Screenshot showing PID and Parent PID in the **Details** tab:
 
 1. **What is the key difference between how Linux creates a process (`fork` + `exec`) and how Windows does it (`CreateProcess`)?**
 
-   > [Your answer]
+   > Linux creates a process by duplicating the parent process address space via fork() and then replacing it with a new executable using exec(). Windows initializes a new process directly from an executable file in a single step using CreateProcess().
 
 2. **What does `WaitForSingleObject()` do? What is its Linux equivalent?**
 
-   > [Your answer]
+   > It pauses the execution of the calling thread until the specified object (e.g., child process handle) enters a signaled state (terminates). Its Linux equivalent is wait() or waitpid().
 
 3. **Why do we need to call `CloseHandle()` at the end? What happens if we don't?**
 
-   > [Your answer]
+   > It releases kernel handle references to prevent system resource leaks. If omitted, system memory and object handles remain allocated until the parent process terminates.
 
 4. **In Task Manager, what was the PID of your parent program and the PID of mspaint? Do they match your program's output?**
 
-   > [Your answer]
+   > Parent PID: 1344324, mspaint PID: 1344325. Yes, both match the handle and ID output printed by the program console.
 
 5. **Compare the Processes tab (tree view) and the Details tab (PID/PPID columns). Which view makes it easier to understand the parent-child relationship? Why?**
 
-   > [Your answer]
-
+   > The Processes tab (tree view) is easier to read because it visually nests child processes beneath parent processes using an indented hierarchical tree structure.
+   
 ---
 
 ## Task 3: Shared Memory IPC
@@ -110,19 +110,19 @@ Screenshot of compiling and running `shm-producer` and `shm-consumer`:
 
 1. **What does `shm_open()` do? How is it different from `open()`?**
 
-   > [Your answer]
+   > shm_open() creates or opens a POSIX shared memory object. Unlike standard open(), which creates/opens files on persistent disk storage, shm_open() manages memory objects residing entirely in volatile memory (RAM).
 
 2. **What does `mmap()` do? Why is shared memory faster than other IPC methods?**
 
-   > [Your answer]
+   > mmap() maps shared memory objects into the process's virtual address space. Shared memory is faster than other IPC techniques because data transfers occur directly in shared RAM without requiring kernel system call overhead or redundant buffer copies.
 
 3. **Why must the shared memory name match between producer and consumer?**
 
-   > [Your answer]
+   > The shared memory name acts as a unique global identifier within the OS kernel namespace, ensuring both independent processes access the exact same segment of physical memory.
 
 4. **What does `shm_unlink()` do? What would happen if the consumer didn't call it?**
 
-   > [Your answer]
+   > shm_unlink() removes the shared memory name from the system. If omitted, the memory object persists in system RAM until the system reboots or all references close.
 
 5. **If the consumer runs before the producer, what happens? Try it and describe the error.**
 
@@ -148,28 +148,27 @@ Screenshot of compiling and running `sender` and `receiver`:
 
 1. **How is a message queue different from shared memory? When would you use one over the other?**
 
-   > [Your answer]
+   > Message queues exchange structured messages managed by the kernel with implicit synchronization. Shared memory provides raw memory spaces requiring explicit synchronization (e.g., semaphores). Use message queues for discrete task messaging and shared memory for high-performance bulk data streaming.
 
 2. **Why does the queue name in `common.h` need to start with `/`?**
 
-   > [Your answer]
+   > POSIX standards require shared memory and message queue object names to start with a forward slash (/) for valid system-wide namespace identification.
 
 3. **What does `mq_unlink()` do? What happens if neither the sender nor receiver calls it?**
 
-   > [Your answer]
+   > mq_unlink() destroys the message queue name and schedules it for deletion. If neither process calls it, the queue persists in kernel memory after execution ends.
 
 4. **What happens if you run the receiver before the sender?**
 
-   > [Your answer]
+   > By default, the receiver blocks (waits) until the sender pushes a message into the queue (unless initialized with O_NONBLOCK).
 
 5. **Can multiple senders send to the same queue? Can multiple receivers read from the same queue?**
 
-   > [Your answer]
-
+   > Yes, POSIX message queues support multiple concurrent senders and receivers, delivering messages atomically based on arrival order and priority.
 ---
 
 ## Reflection
 
 What did you learn from this activity? What was the most interesting difference between Linux and Windows process creation? Which IPC method do you prefer and why?
 
-> [Write your reflection here]
+> Through this activity, I gained practical knowledge on operating system process creation mechanisms and inter-process communication (IPC). The key contrast between operating systems lies in process spawning: Linux utilizes a two-step fork() + exec() mechanism leveraging copy-on-write, while Windows uses a single unified CreateProcess() API call. Regarding IPC, shared memory offers maximum efficiency for large data transfers, whereas message queues provide a structured and synchronized interface for discrete message passing.
