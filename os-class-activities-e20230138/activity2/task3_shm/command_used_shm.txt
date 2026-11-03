@@ -1,0 +1,20 @@
+ 1056  ls
+ 1057  clear
+ 1058  cd ../../..
+ 1059  git add .
+ 1060  git commit -m "fix"
+ 1061  git push
+ 1062  git pull
+ 1063  cd os-class-activities-e20230138/
+ 1064  cd activity2
+ 1065  ls
+ 1066  clear
+ 1067  ls
+ 1068  cd task3_shm/
+ 1069  ls
+ 1070  gcc -o shm-producer shm-producer.c -lrt
+ 1071  gcc -o shm-consumer shm-consumer.c -lrt
+ 1072  ./shm-producer
+ 1073  ./shm-consumer > result-shm-ipc.txt
+ 1074  cat result-shm-ipc.txt
+ 1075  history | tail -n 20 > command_used_shm.txt
