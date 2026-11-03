@@ -1,0 +1,11 @@
+total 32
+drwxrwxr-x 2 gic-teav-encheng gic-teav-encheng  4096 Nov  3 09:30 .
+drwxrwxr-x 6 gic-teav-encheng gic-teav-encheng  4096 Oct 28 19:11 ..
+-rw-rw-r-- 1 gic-teav-encheng gic-teav-encheng     0 Oct 28 10:45 command_used_forkchild.txt
+-rwxrwxr-x 1 gic-teav-encheng gic-teav-encheng 16392 Nov  3 09:30 forkchild
+-rw-rw-r-- 1 gic-teav-encheng gic-teav-encheng  1434 Oct 28 10:45 forkchild.c
+-rw-rw-r-- 1 gic-teav-encheng gic-teav-encheng     0 Nov  3 09:30 result_forkchild.txt
+Parent process (PID: 1344324) — creating child...
+Parent: waiting for child (PID: 1344325) to finish...
+Parent: child exited with status 0
+Parent: done.
