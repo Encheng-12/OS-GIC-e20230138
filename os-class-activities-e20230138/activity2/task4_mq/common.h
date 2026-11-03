@@ -7,7 +7,7 @@
  * The name MUST start with a forward slash '/'.
  * Example: "/queue-sokha", "/queue-dara", "/queue-chantha"
  */
-#define QUEUE_NAME  "/queue-yourname"
+#define QUEUE_NAME  "/queue-encheng"
 #define MAX_SIZE    1024
 
 #endif
