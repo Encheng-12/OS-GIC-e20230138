@@ -1,7 +1,7 @@
 # Class Activity 1 — System Calls in Practice
 
-- **Student Name:** [Your Name Here]
-- **Student ID:** [Your Student ID Here]
+- **Student Name:** TEAV ENCHENG
+- **Student ID:** e20230138
 - **Date:** [Date of Submission]
 
 ---
