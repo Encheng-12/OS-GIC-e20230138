@@ -17,7 +17,7 @@ int main() {
      * Use a unique name to avoid conflicts if sharing the same machine.
      * Example: "OS-sokha", "OS-dara", "OS-chantha"
      */
-    const char *name = "OS-yourname";
+    const char *name = "OS-encheng";
 
     /* Messages to write */
     const char *message_0 = "Hello, ";
