@@ -1,0 +1,10 @@
+18743715 -rw-rw-r-- 2 gic-teav-encheng gic-teav-encheng 10 Nov  5 07:53 hard.txt
+18743793 lrwxrwxrwx 1 gic-teav-encheng gic-teav-encheng 10 Nov  5 08:08 soft.txt -> source.txt
+18743715 -rw-rw-r-- 2 gic-teav-encheng gic-teav-encheng 10 Nov  5 07:53 source.txt
+cat: soft.txt: No such file or directory
+18743715 -rw-rw-r-- 2 gic-teav-encheng gic-teav-encheng 10 Nov  5 07:53 hard.txt
+18743715 -rw-rw-r-- 2 gic-teav-encheng gic-teav-encheng 10 Nov  5 07:53 renamed.txt
+18743675 lrwxrwxrwx 1 gic-teav-encheng gic-teav-encheng 11 Nov  5 08:15 soft.txt -> renamed.txt
+renamed.txt
+version 1
+version 1
