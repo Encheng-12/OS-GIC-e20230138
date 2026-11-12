@@ -1,4 +1,9 @@
-18743715 -rw-rw-r-- 2 gic-teav-encheng gic-teav-encheng 10 Nov  5 07:53 hard.txt
-18743806 -rw-rw-r-- 1 gic-teav-encheng gic-teav-encheng 10 Nov  5 08:16 source.txt
-version 2
-version 1
+
+=== NEW FILE USING THE OLD NAME ===
+18743610 -rw-rw-r-- 2 gic-teav-encheng gic-teav-encheng 12 Nov 12 08:03 silver-hard.txt
+18743610 -rw-rw-r-- 2 gic-teav-encheng gic-teav-encheng 12 Nov 12 08:03 silver-old.txt
+18743611 lrwxrwxrwx 1 gic-teav-encheng gic-teav-encheng 10 Nov 12 08:03 silver-soft.txt -> silver.txt
+18743612 -rw-rw-r-- 1 gic-teav-encheng gic-teav-encheng 12 Nov 12 08:05 silver.txt
+silver.txt: version 114
+hard: version 107
+soft: version 114

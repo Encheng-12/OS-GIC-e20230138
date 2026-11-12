@@ -1,0 +1,5 @@
+1. Yes
+2. Yes
+3. ../bridge-saved.txt
+4. Yes
+5. Linux reads the stored target path of a symbolic link relative to the folder that holds the link itself.
