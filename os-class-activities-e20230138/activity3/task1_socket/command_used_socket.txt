@@ -1,0 +1,20 @@
+ 1441  ./server
+ 1442  fuser -k 8080/tcp
+ 1443  ./server
+ 1444  sudo lsof -i :8080
+ 1445  ls
+ 1446  rm -rf client server
+ 1447  ls
+ 1448  clear
+ 1449  gcc -o server server.c
+ 1450  gcc -o client client.c
+ 1451  ./ server
+ 1452  ./server
+ 1453  ./client
+ 1454  clear
+ 1455  ./server > result_server.txt 2>&1 &
+ 1456  sleep 1
+ 1457  ./client > result_client.txt 2>&1
+ 1458  wait
+ 1459  cat result_server.txt result_client.txt > result_socket.txt
+ 1460  history | tail -n 20 > command_used_socket.txt
