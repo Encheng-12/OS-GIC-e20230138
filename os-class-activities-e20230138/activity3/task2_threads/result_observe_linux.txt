@@ -1,0 +1,7 @@
+gic-tea+ 2445489 2441926 2445489  0    5 08:48 pts/0    00:00:00 ./threads_observe
+gic-tea+ 2445489 2441926 2445491  0    5 08:48 pts/0    00:00:00 ./threads_observe
+gic-tea+ 2445489 2441926 2445492  0    5 08:48 pts/0    00:00:00 ./threads_observe
+gic-tea+ 2445489 2441926 2445493  0    5 08:48 pts/0    00:00:00 ./threads_observe
+gic-tea+ 2445489 2441926 2445494  0    5 08:48 pts/0    00:00:00 ./threads_observe
+gic-tea+ 2445550 2441926 2445550  0    1 08:49 pts/0    00:00:00 grep --color=auto threads_observe
+--- /proc/<PID>/task/ listing ---
