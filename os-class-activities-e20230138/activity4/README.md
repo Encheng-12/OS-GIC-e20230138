@@ -4,8 +4,8 @@
 - **Student ID:** e20230138
 - **Partner Name:** Partner Name Here
 - **Partner Student ID:** Partner ID Here
-- **Server Machine Owner:** [Your Name / Partner Name]
-- **Server IP Address:** 192.168.X.X
+- **Server Machine Owner:** TEAV ENCHENG
+- **Server IP Address:** 192.168.71.175
 
 ---
 
@@ -14,7 +14,7 @@
 ![C++ before mutex](screenshots/cpp_before_mutex.png)
 
 - Expected score after 20 total client requests: 20
-- Actual score: 14 (varies due to timing)
+- Actual score: 2 (varies due to timing)
 - What happened: Multiple server threads read and wrote to `shared_score.txt` concurrently without mutual exclusion, causing race conditions and lost updates.
 
 ---
