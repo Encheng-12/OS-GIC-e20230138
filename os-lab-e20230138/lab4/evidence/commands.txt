@@ -1,0 +1,5 @@
+grep '^sent,' data/events.csv | tee evidence/selected.txt
+grep '^sent,' data/events.csv | cut -d, -f2 | tee evidence/fields.txt
+grep '^sent,' data/events.csv | wc -l > evidence/normal.txt
+cat evidence/normal.txt
+diff -u data/expected.txt evidence/normal.txt
